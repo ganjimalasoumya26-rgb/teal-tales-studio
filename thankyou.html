@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thank You – Teal Tales Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #02070c;
+      --accent: #3fa89a;
+      --accent-2: #256b63;
+      --text: #e5f2f1;
+      --muted: #8fa2a7;
+      --border: rgba(63, 168, 154, 0.18);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #071824 0, #02070c 55%);
+      color: var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .card {
+      background:#08141b;
+      border-radius:22px;
+      border:1px solid var(--border);
+      padding:24px 22px;
+      max-width:360px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .icon {
+      width:64px;height:64px;
+      border-radius:999px;
+      margin:0 auto 10px;
+      background:radial-gradient(circle,#3fa89a,#256b63);
+      display:flex;align-items:center;justify-content:center;
+      font-size:32px;
+      animation:pulse 1.8s ease-in-out infinite;
+      color:#02070c;
+    }
+
+    .title {
+      font-size:18px;
+      margin-bottom:6px;
+    }
+
+    .text {
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .countdown {
+      font-size:11px;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+
+    .link {
+      margin-top:10px;
+      display:inline-block;
+      font-size:12px;
+      color:var(--accent);
+    }
+
+    @keyframes pulse {
+      0% {transform:scale(1);box-shadow:0 0 0 0 rgba(63,168,154,0.5);}
+      70% {transform:scale(1.04);box-shadow:0 0 0 18px rgba(63,168,154,0);}
+      100% {transform:scale(1);box-shadow:0 0 0 0 rgba(63,168,154,0);}
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">✅</div>
+  <div class="title">Thank you for your order!</div>
+  <div class="text">
+    Your teal custom book is being prepared with the name you shared.
+  </div>
+  <div class="countdown">
+    Redirecting to homepage in <span id="seconds">5</span>...
+  </div>
+  <a href="index.html" class="link">Go to homepage now →</a>
+</div>
+
+<script>
+  let remaining = 5;
+  const span = document.getElementById("seconds");
+
+  const timer = setInterval(() => {
+    remaining -= 1;
+    span.textContent = remaining;
+    if (remaining <= 0) {
+      clearInterval(timer);
+      window.location.href = "index.html";
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>

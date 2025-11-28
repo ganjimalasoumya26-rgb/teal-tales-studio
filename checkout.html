@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout – Teal Tales Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #02070c;
+      --bg-card: #08141b;
+      --accent: #3fa89a;
+      --accent-2: #256b63;
+      --text: #e5f2f1;
+      --muted: #8fa2a7;
+      --border: rgba(63, 168, 154, 0.18);
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #071824 0, #02070c 55%);
+      color: var(--text);
+      padding-bottom:40px;
+    }
+
+    a {text-decoration:none;color:inherit;}
+    button {cursor:pointer;font:inherit;border:none;}
+
+    .shell {
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px;
+    }
+
+    /* HEADER */
+    header {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:12px 20px;border-radius:999px;
+      background:linear-gradient(120deg,#0b1f28,#07141b);
+      border:1px solid var(--border);box-shadow:var(--shadow);
+      position:sticky;top:10px;backdrop-filter:blur(12px);z-index:20;
+    }
+
+    .logo {display:flex;gap:10px;align-items:center;}
+    .logo-icon {
+      width:32px;height:32px;border-radius:12px;
+      background:conic-gradient(from 180deg,#3fa89a,#256b63,#3fa89a);
+      display:flex;justify-content:center;align-items:center;
+      animation:spin 8s linear infinite;
+      color:#02070c;font-size:18px;
+    }
+
+    .logo-text {font-size:15px;font-weight:700;text-transform:uppercase;}
+
+    nav {display:flex;gap:18px;color:var(--muted);font-size:12px;text-transform:uppercase;}
+    nav a:hover {color:var(--accent);}
+
+    @keyframes spin {
+      0% {transform:rotate(0);}
+      100% {transform:rotate(360deg);}
+    }
+
+    /* LAYOUT */
+    .layout {
+      margin-top:30px;
+      display:grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr);
+      gap:20px;
+    }
+
+    @media (max-width:900px) {
+      .layout {grid-template-columns:1fr;}
+    }
+
+    .card {
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .section-title {
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:10px;
+      color:var(--accent);
+    }
+
+    .empty {
+      font-size:14px;
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    /* CART LIST */
+    .cart-item {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      font-size:13px;
+    }
+
+    .cart-name {font-weight:600;}
+    .cart-meta {color:var(--muted);font-size:12px;margin-top:4px;}
+
+    .qty-row {
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .qty-btn {
+      width:20px;height:20px;
+      border-radius:999px;
+      background:rgba(63,168,154,0.15);
+      border:1px solid rgba(63,168,154,0.6);
+      display:flex;align-items:center;justify-content:center;
+      font-size:14px;
+      color:var(--accent);
+    }
+
+    .price {font-weight:600;margin-top:4px;}
+
+    .cart-footer {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,0.06);
+      font-size:14px;
+    }
+
+    .total-label {color:var(--muted);}
+    .total-value {font-weight:700;color:var(--accent);}
+
+    .cart-buttons {
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn-outline, .btn-primary {
+      padding:9px 14px;
+      border-radius:12px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      font-weight:600;
+    }
+
+    .btn-outline {
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.15);
+      color:var(--muted);
+    }
+
+    .btn-primary {
+      background:linear-gradient(135deg,#3fa89a,#256b63);
+      border:none;
+      color:#02070c;
+      box-shadow:0 10px 24px rgba(0,0,0,0.6);
+      flex:1;
+      text-align:center;
+    }
+
+    .btn-primary[disabled] {
+      opacity:0.4;
+      cursor:not-allowed;
+      box-shadow:none;
+    }
+
+    /* PAYMENT FORM */
+    .field {
+      margin-bottom:10px;
+      font-size:13px;
+    }
+
+    .field label {
+      display:block;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .field input {
+      width:100%;
+      padding:8px 9px;
+      border-radius:10px;
+      border:1px solid rgba(63,168,154,0.3);
+      background:rgba(5,12,16,0.9);
+      color:var(--text);
+      font-size:13px;
+    }
+
+    .two-cols {
+      display:flex;
+      gap:10px;
+    }
+
+    .note {
+      font-size:11px;
+      color:var(--muted);
+      margin-top:6px;
+    }
+
+    .status {
+      font-size:12px;
+      color:var(--accent);
+      margin-top:8px;
+      display:none;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">@tealtales.studio</div>
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="checkout.html" style="color:var(--accent);">Checkout</a>
+    </nav>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- LEFT: CART SUMMARY -->
+    <section class="card">
+      <div class="section-title">Your Cart</div>
+      <div id="cartContainer"></div>
+      <p class="empty" id="emptyMessage" style="display:none;">
+        Your cart is empty. Go back to <a href="products.html" style="color:var(--accent);">Products</a>.
+      </p>
+
+      <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="total-label">Total</div>
+        <div class="total-value" id="totalValue">₹0</div>
+      </div>
+
+      <div class="cart-buttons">
+        <button class="btn-outline" type="button" onclick="goBack()">← Back</button>
+        <button class="btn-outline" type="button" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </section>
+
+    <!-- RIGHT: PAYMENT -->
+    <section class="card">
+      <div class="section-title">Payment details</div>
+
+      <form onsubmit="event.preventDefault(); submitOrder();">
+
+        <div class="field">
+          <label>Full name on the book</label>
+          <input id="nameInput" type="text" placeholder="Example: Asha Evelyn" required />
+        </div>
+
+        <div class="field">
+          <label>Email for receipt</label>
+          <input id="emailInput" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field">
+          <label>Shipping city</label>
+          <input id="cityInput" type="text" placeholder="Chennai, Hyderabad, etc." required />
+        </div>
+
+        <div class="two-cols">
+          <div class="field">
+            <label>Card number</label>
+            <input type="text" maxlength="19" placeholder="0000 0000 0000 0000" required />
+          </div>
+        </div>
+
+        <div class="two-cols">
+          <div class="field">
+            <label>Expiry</label>
+            <input type="text" placeholder="MM/YY" required />
+          </div>
+          <div class="field">
+            <label>CVV</label>
+            <input type="password" maxlength="4" placeholder="***" required />
+          </div>
+        </div>
+
+        <p class="note">
+          This is a demo checkout – no real payment is taken. After this, you'll see a
+          thank-you page and then go back to the homepage.
+        </p>
+
+        <button id="payButton" class="btn-primary" type="submit">
+          Pay & Place Order
+        </button>
+        <div id="statusText" class="status">Processing your order...</div>
+      </form>
+    </section>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function loadCart() {
+    try {
+      cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    } catch (e) {
+      cart = [];
+    }
+  }
+
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const container = document.getElementById("cartContainer");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const footer = document.getElementById("cartFooter");
+    const totalValue = document.getElementById("totalValue");
+    const payButton = document.getElementById("payButton");
+
+    container.innerHTML = "";
+
+    if (cart.length === 0) {
+      emptyMessage.style.display = "block";
+      footer.style.display = "none";
+      payButton.disabled = true;
+      return;
+    }
+
+    emptyMessage.style.display = "none";
+    footer.style.display = "flex";
+    payButton.disabled = false;
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price * item.qty;
+
+      const div = document.createElement("div");
+      div.className = "cart-item";
+
+      div.innerHTML = `
+        <div>
+          <div class="cart-name">${item.name}</div>
+          <div class="cart-meta">Qty: ${item.qty}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="price">₹${item.price * item.qty}</div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+
+    totalValue.textContent = "₹" + total;
+  }
+
+  function changeQty(index, delta) {
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1);
+    }
+    saveCart();
+    renderCart();
+  }
+
+  function clearCart() {
+    cart = [];
+    saveCart();
+    renderCart();
+  }
+
+  function goBack() {
+    window.location.href = "products.html";
+  }
+
+  function submitOrder() {
+    if (cart.length === 0) return;
+
+    const status = document.getElementById("statusText");
+    const payButton = document.getElementById("payButton");
+    status.style.display = "block";
+    payButton.disabled = true;
+
+    // Just for demo – pretend to process
+    setTimeout(() => {
+      // clear cart and go to thank you page
+      cart = [];
+      saveCart();
+      window.location.href = "thankyou.html";
+    }, 1200);
+  }
+
+  // init
+  loadCart();
+  renderCart();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@tealtales.studio – Custom Name Books</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #02070c;
+      --bg-card: #08141b;
+      --accent: #3fa89a;
+      --accent-2: #256b63;
+      --text: #e5f2f1;
+      --muted: #8fa2a7;
+      --border: rgba(63, 168, 154, 0.18);
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #071824 0, #02070c 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {text-decoration:none;color:inherit;}
+    button {cursor:pointer;font:inherit;border:none;}
+
+    /* Layout */
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px 20px;
+      border-radius:999px;
+      background: linear-gradient(120deg, #0b1f28, #07141b);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:10px;
+      backdrop-filter:blur(12px);
+      z-index:20;
+    }
+
+    .logo {display:flex;align-items:center;gap:10px;}
+    .logo-icon {
+      width:32px;height:32px;
+      border-radius:12px;
+      background:conic-gradient(from 180deg,#3fa89a,#256b63,#3fa89a);
+      display:flex;justify-content:center;align-items:center;
+      animation:spin 8s linear infinite;
+      color:#02070c;
+      font-size:18px;
+    }
+    
+    .logo-top {
+      font-size:15px;
+      font-weight:700;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+    }
+    .logo-sub {
+      font-size:11px;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;
+    }
+
+    nav {display:flex;gap:18px;font-size:12px;color:var(--muted);text-transform:uppercase;}
+
+    nav a:hover {color:var(--accent);}
+
+    /* Hero */
+    .hero {
+      margin-top:30px;
+      padding:30px 24px;
+      border-radius:var(--radius);
+      background: radial-gradient(circle at top left, #082130 0%, #07141d 40%, #02070c 100%);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-badge {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:5px 14px;border-radius:999px;
+      border:1px solid var(--accent);
+      color:var(--accent);
+      background:rgba(0,0,0,0.4);
+      font-size:11px;letter-spacing:0.13em;
+    }
+
+    .hero-title {
+      margin-top:12px;
+      font-size:32px;
+      font-weight:750;
+      max-width:450px;
+      line-height:1.3;
+    }
+
+    .hero-title span {
+      background:linear-gradient(120deg,#c7efeb,#3fa89a,#256b63);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+
+    .hero-sub {
+      margin-top:12px;
+      font-size:14px;
+      color:var(--muted);
+      max-width:430px;
+    }
+
+    .cta-row {
+      margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;
+    }
+
+    .btn-primary {
+      background:linear-gradient(135deg,#3fa89a,#256b63);
+      padding:12px 18px;
+      color:#02070c;
+      border-radius:14px;
+      font-size:13px;
+      text-transform:uppercase;
+      font-weight:600;
+      letter-spacing:0.12em;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .hero-note {
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* Floating Books */
+    .hero-books {
+      position:absolute;
+      right:20px;
+      bottom:10px;
+      width:200px;
+      height:130px;
+    }
+
+    .book-stack {
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-end;
+      height:100%;
+      gap:8px;
+    }
+
+    .book {
+      width:46px;
+      height:80px;
+      border-radius:10px;
+      background:linear-gradient(150deg,#3fa89a,#256b63);
+      animation:float 4s ease-in-out infinite alternate;
+      box-shadow:0 12px 30px rgba(0,0,0,0.8);
+    }
+
+    .book:nth-child(2) {height:92px;background:linear-gradient(150deg,#8bd6ce,#3fa89a);animation-delay:.5s;}
+    .book:nth-child(3) {height:68px;background:linear-gradient(150deg,#22504a,#3fa89a);animation-delay:1s;}
+
+    @keyframes float {
+      0% {transform:translateY(0) rotate(-2deg);}
+      100% {transform:translateY(-10px) rotate(3deg);}
+    }
+
+    /* Info box */
+    .side-card {
+      margin-top:20px;
+      padding:18px;
+      border-radius:var(--radius);
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      font-size:13px;
+    }
+    .side-title {font-size:14px;color:var(--accent);margin-bottom:10px;}
+
+    ul {color:var(--muted);line-height:1.6;}
+  </style>
+
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div>
+        <div class="logo-top">@tealtales.studio</div>
+        <div class="logo-sub">Instagram · Custom Books</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="checkout.html">Checkout</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Personalised with their name</div>
+
+    <h1 class="hero-title">Give a story where <span>they are the hero</span>.</h1>
+
+    <p class="hero-sub">
+      Choose from 3 premium teal-themed books. We print your loved one’s name on
+      the cover and inside pages.
+    </p>
+
+    <div class="cta-row">
+      <a href="products.html" class="btn-primary">Browse Books →</a>
+    </div>
+
+    <p class="hero-note">Made by @tealtales.studio — ships in 3–5 days.</p>
+
+    <div class="hero-books">
+      <div class="book-stack">
+        <div class="book"></div>
+        <div class="book"></div>
+        <div class="book"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO BOX -->
+  <div class="side-card">
+    <div class="side-title">Why choose Teal Tales?</div>
+    <ul>
+      <li>✓ Premium matte teal covers</li>
+      <li>✓ Your name on every book</li>
+      <li>✓ Handmade packaging</li>
+      <li>✓ Instagram DM support</li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
