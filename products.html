@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Products – Teal Tales Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #02070c;
+      --bg-card: #08141b;
+      --accent: #3fa89a;
+      --accent-2: #256b63;
+      --text: #e5f2f1;
+      --muted: #8fa2a7;
+      --border: rgba(63, 168, 154, 0.18);
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #071824 0, #02070c 55%);
+      color: var(--text);
+      padding-bottom:40px;
+    }
+
+    a {text-decoration:none;color:inherit;}
+    button {cursor:pointer;font:inherit;border:none;}
+
+    .shell {
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px;
+    }
+
+    /* HEADER */
+    header {
+      display:flex;justify-content:space-between;align-items:center;
+      padding:12px 20px;border-radius:999px;
+      background:linear-gradient(120deg,#0b1f28,#07141b);
+      border:1px solid var(--border);box-shadow:var(--shadow);
+      position:sticky;top:10px;backdrop-filter:blur(12px);z-index:20;
+    }
+
+    .logo {display:flex;gap:10px;align-items:center;}
+    .logo-icon {
+      width:32px;height:32px;border-radius:12px;
+      background:conic-gradient(from 180deg,#3fa89a,#256b63,#3fa89a);
+      display:flex;justify-content:center;align-items:center;
+      animation:spin 8s linear infinite;
+      color:#02070c;font-size:18px;
+    }
+
+    .logo-text {font-size:15px;font-weight:700;text-transform:uppercase;}
+    nav {display:flex;gap:18px;color:var(--muted);font-size:12px;text-transform:uppercase;}
+    nav a:hover {color:var(--accent);}
+
+    /* PRODUCT GRID */
+    .products-title {
+      margin-top:30px;
+      font-size:28px;
+      font-weight:700;
+      color:var(--accent);
+    }
+
+    .grid {
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:20px;
+    }
+
+    .card {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .cover {
+      width:90px;height:130px;border-radius:14px;
+      background:linear-gradient(150deg,#3fa89a,#256b63);
+      box-shadow:0 12px 28px rgba(0,0,0,0.7);
+      margin-bottom:12px;
+      transform:rotate(-6deg);
+    }
+    .cover2 {background:linear-gradient(150deg,#8bd6ce,#3fa89a);}
+    .cover3 {background:linear-gradient(150deg,#295d58,#3fa89a);}
+
+    .title {font-size:17px;font-weight:600;margin-bottom:6px;}
+    .desc {font-size:13px;color:var(--muted);margin-bottom:10px;}
+
+    .meta {font-size:12px;color:var(--muted);margin-bottom:12px;}
+    .price {font-size:16px;font-weight:700;color:var(--accent);}
+
+    .btn-primary {
+      margin-top:10px;
+      background:linear-gradient(135deg,#3fa89a,#256b63);
+      padding:10px 14px;border-radius:12px;
+      color:#02070c;font-size:13px;
+      text-transform:uppercase;font-weight:600;
+      letter-spacing:0.12em;
+      box-shadow:0 12px 25px rgba(0,0,0,0.6);
+    }
+
+    .view-cart {
+      display:block;
+      margin:30px auto 0;
+      width: fit-content;
+      background:rgba(63,168,154,0.15);
+      border:1px solid var(--accent);
+      padding:12px 18px;border-radius:14px;
+      color:var(--accent);font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+    }
+
+    @keyframes spin {
+      0% {transform:rotate(0);}
+      100% {transform:rotate(360deg);}
+    }
+  </style>
+
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">@tealtales.studio</div>
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html" style="color:var(--accent);">Products</a>
+      <a href="checkout.html">Checkout</a>
+    </nav>
+  </header>
+
+
+  <!-- TITLE -->
+  <h1 class="products-title">Choose your custom book</h1>
+
+
+  <!-- PRODUCT LIST -->
+  <div class="grid">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="cover"></div>
+      <div class="title">Night Ocean Journal</div>
+      <div class="desc">
+        A soft teal journal with your loved one's name printed on the cover.
+      </div>
+      <div class="meta">Hardcover • 120 pages</div>
+      <div class="price">₹799</div>
+
+      <button class="btn-primary" onclick="addToCart('Night Ocean Journal', 799)">
+        Add to cart
+      </button>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="cover cover2"></div>
+      <div class="title">Adventure Under the Sea</div>
+      <div class="desc">
+        A fun kids' storybook where your child is the ocean explorer!
+      </div>
+      <div class="meta">Kids • Full color</div>
+      <div class="price">₹999</div>
+
+      <button class="btn-primary" onclick="addToCart('Adventure Under the Sea', 999)">
+        Add to cart
+      </button>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="cover cover3"></div>
+      <div class="title">Letters in Teal</div>
+      <div class="desc">
+        Write meaningful letters in a calm teal-themed book.
+      </div>
+      <div class="meta">Couples • Gift Ready</div>
+      <div class="price">₹899</div>
+
+      <button class="btn-primary" onclick="addToCart('Letters in Teal', 899)">
+        Add to cart
+      </button>
+    </div>
+
+  </div>
+
+  <!-- CART BUTTON -->
+  <a href="checkout.html" class="view-cart">View Cart →</a>
+
+</div>
+
+<script>
+  function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    let found = cart.find(item => item.name === name);
+    if (found) {
+      found.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+  }
+</script>
+
+</body>
+</html>
